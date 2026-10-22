@@ -6,7 +6,7 @@ const http = require('http');
 const crypto = require('crypto');
 const { WebSocketServer } = require('ws');
 const { verifyLogin, defaultClient } = require('./hive-verify');
-const { submitScore, getLeaderboard } = require('./leaderboard');
+const { submitScore, getLeaderboard, getLeaderboardPeriod, getRank } = require('./leaderboard');
 
 const LIMITS = {
   msgBytes: 4096, msgsPerSecond: 30, playersPerRoom: 8, challengeMs: 5 * 60e3, sessionMs: 7 * 864e5,
@@ -59,7 +59,13 @@ function createServer({ allowedOrigin = process.env.ALLOWED_ORIGIN || 'https://d
       return json(res, 200, { ok: true, token, username: c.username });
     }
     if (req.method === 'GET' && url.pathname === '/leaderboard') {
-      return json(res, 200, { entries: getLeaderboard() });
+      const period = url.searchParams.get('period') || 'alltime';
+      const limit = Math.min(Math.max(parseInt(url.searchParams.get('limit'), 10) || 20, 1), 50);
+      const offset = Math.max(parseInt(url.searchParams.get('offset'), 10) || 0, 0);
+      const me = url.searchParams.get('username');
+      const board = getLeaderboardPeriod({ period, limit, offset });
+      if (me) board.me = getRank(String(me).toLowerCase(), period);
+      return json(res, 200, board);
     }
     if (req.method === 'POST' && url.pathname === '/leaderboard/submit') {
       let body; try { body = await readBody(req); } catch (e) { return json(res, 400, { error: 'bad-body' }); }

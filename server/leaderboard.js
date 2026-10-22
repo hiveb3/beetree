@@ -8,8 +8,10 @@ const path = require('path');
 const { defaultClient } = require('./hive-verify');
 
 const FILE = path.join(__dirname, 'leaderboard.json');
+const HISTORY_FILE = path.join(__dirname, 'leaderboard-history.json');
 const APP_ID = 'hive_block_producer'; // must match HBPAuth.APP_ID in net/hive-auth.js
 const MAX_ENTRIES = 50;
+const MAX_HISTORY = 5000; // every valid submission, not just personal bests — powers period filters below
 
 function load() {
   try {
@@ -19,6 +21,35 @@ function load() {
 }
 function save(entries) {
   fs.writeFileSync(FILE, JSON.stringify({ updatedAt: new Date().toISOString(), entries }, null, 1));
+}
+
+// Every valid submission is appended here (unlike leaderboard.json, which only keeps each player's
+// personal best). This is what lets 'daily'/'weekly' leaderboards reflect runs from that window, not just
+// an all-time best that may be weeks old. Capped at MAX_HISTORY, oldest dropped first.
+function loadHistory() {
+  try {
+    const data = JSON.parse(fs.readFileSync(HISTORY_FILE, 'utf8'));
+    return Array.isArray(data.entries) ? data.entries : [];
+  } catch (e) { return []; }
+}
+function saveHistory(entries) {
+  fs.writeFileSync(HISTORY_FILE, JSON.stringify({ updatedAt: new Date().toISOString(), entries: entries.slice(-MAX_HISTORY) }, null, 1));
+}
+
+const PERIOD_MS = { daily: 24 * 3600e3, weekly: 7 * 24 * 3600e3 };
+function periodCutoffISO(period) {
+  const ms = PERIOD_MS[period];
+  return ms ? new Date(Date.now() - ms).toISOString() : null; // null = no cutoff (alltime)
+}
+
+// Reduces a list of (possibly repeated) submissions down to each player's best score within that list.
+function bestPerUser(list) {
+  const best = new Map();
+  for (const e of list) {
+    const cur = best.get(e.username);
+    if (!cur || cur.score < e.score) best.set(e.username, e);
+  }
+  return Array.from(best.values()).sort((a, b) => b.score - a.score);
 }
 
 // Verifies a transaction id actually exists on chain, was signed by `username`, and contains a
@@ -48,9 +79,15 @@ async function submitScore({ username, txId, score }, client) {
   const v = await verifyOnChainScore({ username, txId, score }, client).catch(() => ({ ok: false, reason: 'node-error' }));
   if (!v.ok) return v;
 
+  const entry = { username, score, txId, at: new Date().toISOString() };
+
+  // every valid submission counts toward period leaderboards, regardless of whether it's an all-time best
+  const hist = loadHistory();
+  hist.push(entry);
+  saveHistory(hist);
+
   const entries = load();
   const existingIdx = entries.findIndex(e => e.username === username);
-  const entry = { username, score, txId, at: new Date().toISOString() };
   if (existingIdx === -1) entries.push(entry);
   else if (entries[existingIdx].score < score) entries[existingIdx] = entry; // only replace with a better run
   else return { ok: true, replaced: false }; // valid submission, just not a personal best — nothing to change
@@ -60,8 +97,34 @@ async function submitScore({ username, txId, score }, client) {
   return { ok: true, replaced: true };
 }
 
+// Unchanged on purpose: existing callers (relay.js's plain GET /leaderboard, the original test suite) use
+// this for the all-time personal-best board exactly as before.
 function getLeaderboard(limit = 20) {
   return load().slice(0, limit).map(({ username, score, at }) => ({ username, score, at }));
 }
 
-module.exports = { submitScore, getLeaderboard, verifyOnChainScore, APP_ID };
+// New: a period-aware board ('daily' | 'weekly' | 'alltime', default 'alltime'), with pagination.
+// 'alltime' reuses the same personal-best entries as getLeaderboard() above, just paginated differently;
+// 'daily'/'weekly' recompute each player's best *within that window* from the full submission history.
+function getLeaderboardPeriod({ period = 'alltime', limit = 20, offset = 0 } = {}) {
+  const list = period === 'alltime' ? load() : bestPerUser(filterSince(loadHistory(), periodCutoffISO(period)));
+  return {
+    period,
+    total: list.length,
+    entries: list.slice(offset, offset + limit).map(({ username, score, at }) => ({ username, score, at })),
+  };
+}
+function filterSince(list, cutoffISO) {
+  return cutoffISO ? list.filter(e => e.at >= cutoffISO) : list;
+}
+
+// A specific player's rank within a period, even if they're outside the page a client happened to fetch.
+// Returns null if that player has no qualifying submission in that window.
+function getRank(username, period = 'alltime') {
+  const list = period === 'alltime' ? load() : bestPerUser(filterSince(loadHistory(), periodCutoffISO(period)));
+  const idx = list.findIndex(e => e.username === username);
+  if (idx === -1) return null;
+  return { rank: idx + 1, score: list[idx].score, total: list.length };
+}
+
+module.exports = { submitScore, getLeaderboard, getLeaderboardPeriod, getRank, verifyOnChainScore, APP_ID };

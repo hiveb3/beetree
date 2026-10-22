@@ -242,6 +242,7 @@ kbd {
   border-radius: 8px; padding: 7px 8px; cursor: pointer; font-size: 12px;
 }
 .ghost-btn:hover { color: var(--fg); border-color: var(--muted); }
+.lb-period-btn.active { color: var(--accent, #f0b429); border-color: var(--accent, #f0b429); }
 
 /* touch controls: utility pills on top, then a deck with two mirrored thumb clusters of the same size.
    Left hand moves and drops, right hand rotates. Every key keeps a hit area of at least 44x44 px. */
@@ -604,7 +605,14 @@ kbd {
       <h2 data-i18n="records">紀錄</h2>
       <div class="records-wrap" id="records"></div>
       <h3 style="margin-top:18px">🌐 Global Leaderboard <small style="font-weight:400;opacity:.7">(Hive-verified scores)</small></h3>
+      <div class="lb-periods" role="tablist" style="display:flex;gap:6px;margin:6px 0">
+        <button type="button" class="ghost-btn lb-period-btn" data-period="daily">Daily</button>
+        <button type="button" class="ghost-btn lb-period-btn" data-period="weekly">Weekly</button>
+        <button type="button" class="ghost-btn lb-period-btn" data-period="alltime">All-time</button>
+      </div>
+      <p class="note" id="lbMyRank" style="min-height:1.2em"></p>
       <ol id="globalLeaderboard" class="records-wrap"><li style="opacity:.6">Loading…</li></ol>
+      <button type="button" class="ghost-btn" id="lbMoreBtn" style="margin-top:6px" hidden>Show more</button>
     </div>
     <div class="hview" data-view="info" id="view-info" role="tabpanel" hidden>
       <h2 data-i18n="infoT">版本與更新</h2>
@@ -2301,23 +2309,52 @@ requestAnimationFrame(frame);
   }
   if (vsReadyBtn) vsReadyBtn.addEventListener('click', () => { if (match) match.ready(); });
 
-  // Global leaderboard (Records tab): fetched fresh each time that tab is opened, not cached, since
-  // other players' scores can change at any time.
-  function loadGlobalLeaderboard() {
+  // Global leaderboard (Records tab): fetched fresh each time it's opened or the period/page changes,
+  // not cached, since other players' scores can change at any time.
+  const LB_PAGE_SIZE = 20;
+  let lbPeriod = 'alltime', lbOffset = 0, lbEntries = [];
+  function lbMe() { const s = window.HBPAuth && window.HBPAuth.current(); return s ? s.username : null; }
+  function renderGlobalLeaderboard(d) {
+    const el2 = $('#globalLeaderboard'), moreBtn = $('#lbMoreBtn'), rankEl = $('#lbMyRank');
+    const entries = (d && d.entries) || [];
+    // entries here is always the full accumulated list from rank 1 (loadGlobalLeaderboard concatenates
+    // every page into lbEntries before calling this) — so position i is always absolute rank i+1,
+    // regardless of which page was most recently fetched. Do not offset by lbOffset here.
+    el2.innerHTML = entries.length
+      ? entries.map((e, i) => `<li>#${i + 1} <b>@${e.username}</b> — ${e.score.toFixed(3)}</li>`).join('')
+      : (lbOffset === 0 ? '<li style="opacity:.6">No verified scores yet — be the first!</li>' : '<li style="opacity:.6">No more entries.</li>');
+    const total = (d && d.total) || 0;
+    if (moreBtn) moreBtn.hidden = lbOffset + entries.length >= total;
+    if (rankEl) {
+      const me = d && d.me;
+      rankEl.textContent = me ? `Your rank: #${me.rank} of ${me.total} (${me.score.toFixed(3)})`
+        : (lbMe() ? 'You have no verified score in this period yet.' : '');
+    }
+  }
+  function loadGlobalLeaderboard(reset = true) {
     const el2 = $('#globalLeaderboard');
     if (!el2) return;
-    el2.innerHTML = '<li style="opacity:.6">Loading…</li>';
-    fetch(`${RELAY_HTTP}/leaderboard`)
+    if (reset) { lbOffset = 0; lbEntries = []; el2.innerHTML = '<li style="opacity:.6">Loading…</li>'; }
+    const me = lbMe();
+    const qs = new URLSearchParams({ period: lbPeriod, limit: LB_PAGE_SIZE, offset: lbOffset });
+    if (me) qs.set('username', me);
+    fetch(`${RELAY_HTTP}/leaderboard?${qs}`)
       .then(r => r.json())
-      .then(d => {
-        const entries = (d && d.entries) || [];
-        el2.innerHTML = entries.length
-          ? entries.map((e, i) => `<li>#${i + 1} <b>@${e.username}</b> — ${e.score.toFixed(3)}</li>`).join('')
-          : '<li style="opacity:.6">No verified scores yet — be the first!</li>';
-      })
+      .then(d => { lbEntries = reset ? (d.entries || []) : lbEntries.concat(d.entries || []); renderGlobalLeaderboard({ ...d, entries: lbEntries }); })
       .catch(() => { el2.innerHTML = '<li style="opacity:.6">Couldn\'t reach the leaderboard right now.</li>'; });
   }
-  document.querySelectorAll('.home-tabs button[data-view="records"]').forEach(b => b.addEventListener('click', loadGlobalLeaderboard));
+  document.querySelectorAll('.lb-period-btn').forEach(b => {
+    if (b.dataset.period === lbPeriod) b.classList.add('active');
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.lb-period-btn').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      lbPeriod = b.dataset.period;
+      loadGlobalLeaderboard(true);
+    });
+  });
+  const lbMoreBtn = $('#lbMoreBtn');
+  if (lbMoreBtn) lbMoreBtn.addEventListener('click', () => { lbOffset += LB_PAGE_SIZE; loadGlobalLeaderboard(false); });
+  document.querySelectorAll('.home-tabs button[data-view="records"]').forEach(b => b.addEventListener('click', () => loadGlobalLeaderboard(true)));
 })();
 </script>
 </body>
