@@ -1,6 +1,6 @@
-# Search engines read robots.txt only at the root of a host (https://d-bot-2026.github.io/robots.txt),
+# Search engines read robots.txt only at the root of a host (https://hiveb3.github.io/robots.txt),
 # which this project site does not control. This copy documents the intent: everything may be crawled.
 User-agent: *
 Allow: /
 
-Sitemap: https://d-bot-2026.github.io/hive-block-producer/sitemap.xml
+Sitemap: https://hiveb3.github.io/hive-block-producer/sitemap.xml

@@ -70,9 +70,9 @@
         method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'omit',
         body: JSON.stringify({ username: name, challenge, signature, publicKey }),
       });
-      if (!r.ok) throw new Error('verify-failed');
-      const v = await r.json();
-      session = { ...session, verified: !!v.ok, token: v.token || null };
+      let v; try { v = await r.json(); } catch (e) { v = {}; }
+      if (!r.ok || !v.ok) throw new Error(`verify-failed: ${v.reason || r.status}`);
+      session = { ...session, verified: true, token: v.token || null };
     }
     store.set(session); changed(session);
     return session;

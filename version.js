@@ -1,4 +1,4 @@
-/* Hive Block Producer releases, newest first.
+/* BeeTris releases, newest first.
    The first entry is the current version shown in the game. To ship a new version, add an entry at the top,
    then run `node scripts/changelog.js` to regenerate CHANGELOG.md.
    Versioning: vMAJOR.MINOR.PATCH. New features bump MINOR, bug fixes bump PATCH; v1.0.0 marks the end of beta. */

@@ -3,29 +3,28 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Hive Block Producer | Free Browser Block Puzzle Game</title>
-<meta name="description" content="Hive Block Producer is a free browser block puzzle game with a Hive blockchain theme. Stack transactions, survive hardforks and dodge downvotes. No sign-up, works on phones.">
+<title>BeeTris | Free Browser Block Puzzle Game</title>
+<meta name="description" content="BeeTris is a free browser block puzzle game with a Hive blockchain theme. Stack transactions, survive hardforks and dodge downvotes. No sign-up, works on phones.">
 <meta name="keywords" content="Hive, Hive blockchain, blockchain game, free browser game, block puzzle, falling block game, HTML5 game">
 <meta name="robots" content="index, follow">
-<meta name="google-site-verification" content="fHCSGKJaRCxcve5AGlsyt01jiJo3auaZF_auIpDwJ9A">
-<link rel="canonical" href="https://d-bot-2026.github.io/hive-block-producer/">
+<link rel="canonical" href="https://hiveb3.github.io/hive-block-producer/">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Hive Block Producer">
-<meta property="og:url" content="https://d-bot-2026.github.io/hive-block-producer/">
-<meta property="og:title" content="Hive Block Producer | Free Browser Block Puzzle Game">
+<meta property="og:site_name" content="BeeTris">
+<meta property="og:url" content="https://hiveb3.github.io/hive-block-producer/">
+<meta property="og:title" content="BeeTris | Free Browser Block Puzzle Game">
 <meta property="og:description" content="A free block puzzle game with a Hive blockchain theme. Stack transactions, survive hardforks, dodge downvotes. Plays in your browser, 8 languages.">
-<meta property="og:image" content="https://d-bot-2026.github.io/hive-block-producer/og-image.jpg">
+<meta property="og:image" content="https://hiveb3.github.io/hive-block-producer/og-image.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Hive Block Producer game screen: a stack of hexagon-marked blocks, wallet and Hive chain status panels">
+<meta property="og:image:alt" content="BeeTris game screen: a stack of hexagon-marked blocks, wallet and Hive chain status panels">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Hive Block Producer | Free Browser Block Puzzle Game">
+<meta name="twitter:title" content="BeeTris | Free Browser Block Puzzle Game">
 <meta name="twitter:description" content="A free block puzzle game with a Hive blockchain theme. Stack transactions, survive hardforks, dodge downvotes. Plays in your browser.">
-<meta name="twitter:image" content="https://d-bot-2026.github.io/hive-block-producer/og-image.jpg">
-<meta name="twitter:image:alt" content="Hive Block Producer game screen: a stack of hexagon-marked blocks, wallet and Hive chain status panels">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoGame","name":"Hive Block Producer","url":"https://d-bot-2026.github.io/hive-block-producer/","image":"https://d-bot-2026.github.io/hive-block-producer/og-image.jpg","description":"A free browser block puzzle game with a Hive blockchain theme. Unofficial fan project; in-game HIVE, HBD and RC are play points with no real value.","genre":["Puzzle","Block puzzle"],"gamePlatform":"Web browser","applicationCategory":"Game","operatingSystem":"Any","isAccessibleForFree":true,"inLanguage":["en","es","fr","zh-Hant","zh-Hans","ja","ko","hi"],"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+<meta name="twitter:image" content="https://hiveb3.github.io/hive-block-producer/og-image.jpg">
+<meta name="twitter:image:alt" content="BeeTris game screen: a stack of hexagon-marked blocks, wallet and Hive chain status panels">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoGame","name":"BeeTris","url":"https://hiveb3.github.io/hive-block-producer/","image":"https://hiveb3.github.io/hive-block-producer/og-image.jpg","description":"A free browser block puzzle game with a Hive blockchain theme. Unofficial fan project; in-game HIVE, HBD and RC are play points with no real value.","genre":["Puzzle","Block puzzle"],"gamePlatform":"Web browser","applicationCategory":"Game","operatingSystem":"Any","isAccessibleForFree":true,"inLanguage":["en","es","fr","zh-Hant","zh-Hans","ja","ko","hi"],"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
 <meta name="theme-color" content="#170a10">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 115'%3E%3Cpath d='M50 0l50 29v57l-50 29L0 86V29z' fill='%23e31337'/%3E%3Cpath d='M30 30h16l24 27-24 28H30l24-28z' fill='%23170a10'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -41,7 +40,7 @@
   --line: #3e2532;
   --fg: #f6ecef;
   --muted: #b39aa4;
-  --hive: #e31337;
+  --hive: #e8a930;
   --honey: #f5a524;
   --hbd: #2ec4b6;
   --good: #7bd389;
@@ -70,7 +69,7 @@ body {
   margin: 0;
   background-color: var(--bg);
   background-image:
-    radial-gradient(ellipse at 50% -10%, rgba(227, 19, 55, 0.22), transparent 60%),
+    radial-gradient(ellipse at 50% -10%, rgba(232, 169, 48, 0.22), transparent 60%),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='98'%3E%3Cpath d='M28 66L0 50V16L28 0l28 16v34L28 66zm0 0v32' fill='none' stroke='%23e31337' stroke-opacity='0.07' stroke-width='1.2'/%3E%3C/svg%3E");
   color: var(--fg);
   font-family: var(--f-body);
@@ -167,7 +166,7 @@ kbd {
   position: relative;
   border-radius: 8px;
   border: 1px solid var(--line);
-  box-shadow: 0 0 0 5px var(--bg-deep), 0 0 0 6px var(--line), 0 20px 60px rgba(227, 19, 55, 0.18);
+  box-shadow: 0 0 0 5px var(--bg-deep), 0 0 0 6px var(--line), 0 20px 60px rgba(232, 169, 48, 0.18);
   overflow: hidden;
   line-height: 0;
 }
@@ -307,7 +306,7 @@ kbd {
   box-shadow: 0 3px 0 var(--bg-deep);
 }
 .t-round small { max-width: 86%; text-align: center; line-height: 1.1; }
-.t-drop { background: var(--hive); border-color: #ff5a78; color: #fff; }
+.t-drop { background: var(--hive); border-color: #f0c060; color: #fff; }
 .t-drop small { color: #fff; opacity: 1; }
 .t-cw { background: var(--honey); border: 2.5px solid #ffd27a; color: #2a1406; font-size: 38px; }
 .t-cw small { color: #2a1406; }
@@ -322,7 +321,7 @@ kbd {
   grid-template-rows: minmax(44px, 0.95fr) minmax(16px, 0.42fr) minmax(44px, 1.63fr);
   grid-template-areas: "drop drop" ". ." "left right";
 }
-.t-move .r-drop { grid-area: drop; border-radius: 99px; border: 3px solid #ff5a78; flex-direction: row; gap: 8px; font-size: 26px; }
+.t-move .r-drop { grid-area: drop; border-radius: 99px; border: 3px solid #f0c060; flex-direction: row; gap: 8px; font-size: 26px; }
 .t-key.k-left { grid-area: left; border-radius: 18px 6px 6px 18px; }
 .t-key.k-right { grid-area: right; border-radius: 6px 18px 18px 6px; }
 .t-rot .t-grid {
@@ -404,7 +403,7 @@ kbd {
   color: var(--muted); font: 600 12px/1.15 var(--f-body); cursor: pointer; overflow: hidden;
 }
 .home-tabs button#verBtn { font-family: var(--f-mono); font-size: 11px; }
-.home-tabs button[aria-selected="true"] { color: var(--fg); border-color: var(--hive); background: rgba(227, 19, 55, 0.14); }
+.home-tabs button[aria-selected="true"] { color: var(--fg); border-color: var(--hive); background: rgba(232, 169, 48, 0.14); }
 .feedback-link { color: var(--honey); }
 .home-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
 .globe { width: 16px; height: 16px; flex: none; }
@@ -416,7 +415,7 @@ kbd {
 .lang-btn:hover { border-color: var(--muted); }
 .hero { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 44px; align-items: center; justify-content: center; }
 .hero-art { line-height: 0; border-radius: 10px; border: 1px solid var(--line); overflow: hidden;
-  box-shadow: 0 0 0 5px var(--bg-deep), 0 0 0 6px var(--line), 0 24px 70px rgba(227, 19, 55, 0.22); transform: rotate(-2deg); }
+  box-shadow: 0 0 0 5px var(--bg-deep), 0 0 0 6px var(--line), 0 24px 70px rgba(232, 169, 48, 0.22); transform: rotate(-2deg); }
 .hero-copy { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
 .hero-copy h1 { margin: 0; font: 800 clamp(48px, 8vw, 84px)/0.92 var(--f-display); letter-spacing: 0.04em; text-wrap: balance; }
 .hero-copy h1 em { display: block; font-style: normal; font-family: var(--f-display); font-weight: 800; font-size: clamp(18px, 2.6vw, 28px); letter-spacing: 0.18em; color: var(--hive); margin-top: 10px; }
@@ -497,7 +496,7 @@ kbd {
 }
 .lang-opt small { font: 500 11px var(--f-mono); color: var(--muted); }
 .lang-opt:hover { border-color: var(--muted); }
-.lang-opt.on { border-color: var(--hive); background: rgba(227, 19, 55, 0.12); }
+.lang-opt.on { border-color: var(--hive); background: rgba(232, 169, 48, 0.12); }
 .lang-opt span { font-family: var(--lf, inherit); }
 
 /* player chip in game */
@@ -569,7 +568,7 @@ kbd {
 <body>
 <section class="home" id="home">
   <header class="home-top">
-    <div class="brand"><span class="hexmark" aria-hidden="true"></span><div><b>HIVE</b><small>BLOCK PRODUCER</small></div></div>
+    <div class="brand"><span class="hexmark" aria-hidden="true"></span><div><b>BEE</b><small>TRIS</small></div></div>
     <button class="lang-btn" id="langBtnHome" type="button"></button>
   </header>
   <div class="home-body">
@@ -577,16 +576,17 @@ kbd {
       <div class="hero">
         <div class="hero-art"><canvas id="heroCv" aria-hidden="true"></canvas></div>
         <div class="hero-copy">
-          <h1>HIVE<em>BLOCK PRODUCER</em></h1>
+          <h1>BEE<em>TRIS</em></h1>
           <p class="lead" data-i18n="lead"></p>
           <form class="start-card" id="startForm" autocomplete="off">
             <label for="playerName" data-i18n="playerName">玩家名稱</label>
             <input id="playerName" name="playerName" maxlength="16" data-i18n-ph="namePh" spellcheck="false">
             <button class="primary" type="submit" data-i18n="guestPlay">以訪客身分開始</button>
-            <button class="secondary hive-login" type="button" id="hiveLoginBtn"><span data-i18n="hiveLogin">用 Hive 帳號登入</span></button>
+            <button class="secondary hive-login" id="homeHiveLoginBtn" type="button"><span data-i18n="hiveLogin">用 Hive 帳號登入</span></button>
             <p class="note login-note" data-i18n="loginNote"></p>
           </form>
           <p class="disclaimer"><span data-i18n="disclaimer"></span> <span data-i18n="unofficial"></span></p>
+          <p class="disclaimer">🐝 Fun fact: <a href="https://vote.hive.uno/@hive3" target="_blank" rel="noopener" style="color:inherit">@hive3</a> is a real Hive witness, not just this game's theme. A vote helps it actually produce blocks!</p>
         </div>
       </div>
     </div>
@@ -603,10 +603,12 @@ kbd {
     <div class="hview" data-view="records" id="view-records" role="tabpanel" hidden>
       <h2 data-i18n="records">紀錄</h2>
       <div class="records-wrap" id="records"></div>
+      <h3 style="margin-top:18px">🌐 Global Leaderboard <small style="font-weight:400;opacity:.7">(Hive-verified scores)</small></h3>
+      <ol id="globalLeaderboard" class="records-wrap"><li style="opacity:.6">Loading…</li></ol>
     </div>
     <div class="hview" data-view="info" id="view-info" role="tabpanel" hidden>
       <h2 data-i18n="infoT">版本與更新</h2>
-      <p class="note"><span data-i18n="beta"></span> <a class="feedback-link" href="https://github.com/d-bot-2026/hive-block-producer/issues/new" target="_blank" rel="noopener" data-i18n="feedback"></a></p>
+      <p class="note"><span data-i18n="beta"></span> <a class="feedback-link" href="https://github.com/hiveb3/hive-block-producer/issues/new" target="_blank" rel="noopener" data-i18n="feedback"></a></p>
       <p class="note" id="privacyNote" data-i18n="privacy" hidden></p>
       <div class="pager"><div class="changelog cols" id="changelog" lang="en"></div></div>
       <p class="pager-hint" data-i18n="moreHint" hidden></p>
@@ -623,13 +625,14 @@ kbd {
 
 <div class="app" id="app" hidden>
   <aside class="panel left">
-    <div class="brand m-hide"><span class="hexmark" aria-hidden="true"></span><div><b>HIVE</b><small>BLOCK PRODUCER</small></div></div>
+    <div class="brand m-hide"><span class="hexmark" aria-hidden="true"></span><div><b>BEE</b><small>TRIS</small></div></div>
     <section class="box">
       <h3><span data-i18n="hold">保留</span> <span class="cost">20 RC</span></h3>
       <canvas id="hold" data-i18n-aria="holdAria" aria-label="保留的方塊"></canvas>
     </section>
     <section class="box wallet">
-      <div class="player"><b id="pName"></b><small data-i18n="guest" id="pGuestTag">訪客</small></div>
+      <div class="player"><b id="pName"></b><small id="pStatus" data-i18n="guest">訪客</small></div>
+      <button class="ghost-btn" id="hiveLoginBtn" type="button" data-i18n="loginWithHive" style="margin:6px 0;width:100%">以 Hive 登入 / Login with Hive</button>
       <div class="stat big"><label data-i18n="wallet">錢包</label><div class="num"><span id="hive">0.000</span><small>HIVE</small></div></div>
       <div class="stat hbd"><label data-i18n="hbdSavings">HBD 儲蓄</label><div class="num"><span id="hbd">0.000</span><small>HBD</small></div><div class="sub m-hide" id="interest"></div></div>
       <div class="sub m-hide" id="bestLine"></div>
@@ -684,6 +687,19 @@ kbd {
       <h3 data-i18n="feed">鏈上動態</h3>
       <ol id="feed"></ol>
     </section>
+    <section class="box versus">
+      <h3 data-i18n="versus">Versus</h3>
+      <div id="vsLobby">
+        <input id="vsRoom" type="text" placeholder="room code" maxlength="12" style="width:70%">
+        <button class="ghost-btn" id="vsJoinBtn" type="button" data-i18n="vsJoin">Join / Create</button>
+        <ol id="vsRoster" style="font-size:12px;margin-top:6px"></ol>
+        <button class="ghost-btn" id="vsReadyBtn" type="button" hidden data-i18n="vsReady">Ready</button>
+      </div>
+      <div id="vsMatch" hidden>
+        <small data-i18n="vsOpponent">Opponent</small>
+        <canvas id="vsOpponentCanvas"></canvas>
+      </div>
+    </section>
     <div class="mini-actions m-hide">
       <button class="ghost-btn" id="pauseBtn" type="button"></button>
       <button class="ghost-btn" id="muteBtn" type="button"></button>
@@ -728,7 +744,6 @@ kbd {
 
 <script src="version.js"></script>
 <script src="i18n.js"></script>
-<script src="net/hive-auth.js"></script>
 <script>
 (() => {
 'use strict';
@@ -1486,50 +1501,7 @@ let sheetFn = null;
 const NAME_KEY = 'hive-tetris-name', RUNS_KEY = 'hive-tetris-runs';
 let playerName = (store.get(NAME_KEY) || '').slice(0, 16);
 function cleanName(v) { return String(v || '').replace(/[\u0000-\u001f\u007f<>]/g, '').replace(/\s+/g, ' ').trim().slice(0, 16); }
-const HBP_AUTH_SERVER = 'https://169-58-182-112.sslip.io';
-function hiveSession() { return (window.HBPAuth && window.HBPAuth.current()) || null; }
-function displayName() {
-  const s = hiveSession();
-  if (s) return '@' + s.username;
-  return playerName || t('defaultName');
-}
-function updateLoginUI() {
-  const guestTag = $('#pGuestTag');
-  if (guestTag) guestTag.hidden = !!hiveSession();
-  setText($('#pName'), displayName());
-}
-async function onHiveLoginClick() {
-  const btn = $('#hiveLoginBtn');
-  if (!window.HBPAuth || !window.HBPAuth.hasKeychain()) {
-    toast(t('noKeychain') || 'Install Hive Keychain to log in');
-    return;
-  }
-  const name = (window.prompt(t('enterHiveName') || 'Hive username:') || '').trim();
-  if (!name) return;
-  if (!window.HBPAuth.isValidName(name)) {
-    toast(t('invalidHiveName') || 'That is not a valid Hive username');
-    return;
-  }
-  if (btn) btn.disabled = true;
-  try {
-    const session = await window.HBPAuth.login(name, { method: 'keychain', server: HBP_AUTH_SERVER });
-    playerName = cleanName('@' + session.username);
-    store.set(NAME_KEY, playerName);
-    updateLoginUI();
-    toast((session.verified ? '\u2713 ' : '') + (t('loggedInAs') || 'Logged in as') + ' @' + session.username);
-    startGame();
-  } catch (e) {
-    toast(t('loginFailed') || 'Hive login failed');
-  } finally {
-    if (btn) btn.disabled = false;
-  }
-}
-document.addEventListener('DOMContentLoaded', () => {
-  const btn = $('#hiveLoginBtn');
-  if (btn) btn.addEventListener('click', onHiveLoginClick);
-  if (window.HBPAuth) window.HBPAuth.onChange(updateLoginUI);
-  updateLoginUI();
-});
+function displayName() { return playerName || t('defaultName'); }
 function loadRuns() {
   try { const r = JSON.parse(store.get(RUNS_KEY) || '[]'); return Array.isArray(r) ? r : []; } catch (e) { return []; }
 }
@@ -1590,7 +1562,7 @@ function togglePause() {
       <div class="actions"><button class="primary" data-act="resume" type="button">${t('resumeBtn')}</button>
       <button class="secondary" data-act="start" type="button">${t('restartBtn')}</button>
       <button class="secondary" data-act="home" type="button">${t('homeBtn')}</button>${langMenuBtn()}</div>
-      <p class="ver-note">Hive Block Producer v${VERSION.version}</p>`);
+      <p class="ver-note">BeeTris v${VERSION.version} · 🐝 Like the theme? The real <a href="https://vote.hive.uno/@hive3" target="_blank" rel="noopener" style="color:inherit">@hive3</a> is an actual Hive witness — a vote would mean a lot!</p>`);
   } else if (S.state === 'pause') {
     S.state = 'play'; el.overlay.hidden = true; sheetFn = null;
   }
@@ -1616,7 +1588,7 @@ function gameOver() {
   setTimeout(() => { if (S === g && S.state === 'over') showSheet(() => `
     <h2>${t('overT')}</h2>
     <p class="lead">${t('overD')}</p>
-    <p class="best">${t('playingAs')} <b>${escapeHtml(displayName())}</b> · ${t('guest')}</p>
+    <p class="best">${t('playingAs')} <b>${escapeHtml(displayName())}</b> · ${(window.HBPAuth && window.HBPAuth.current() && window.HBPAuth.current().verified) ? 'Hive ✓' : t('guest')}</p>
     <dl class="result">
       <div class="total"><dt>${t('total')}</dt><dd>${fmt3(total)}</dd></div>
       <div><dt>${t('rWallet')}</dt><dd>${fmt3(g.hive)}</dd></div>
@@ -1628,9 +1600,10 @@ function gameOver() {
     </dl>
     <p class="disclaimer" style="margin-bottom:14px">${t('disclaimer')}</p>
     ${record ? `<p class="record">${t('record')}</p>` : `<p class="best">${t('best')} <b>${fmt3(best)}</b></p><p></p>`}
+    ${(window.HBPAuth && window.HBPAuth.current() && window.HBPAuth.current().verified) ? `<button class="secondary" data-act="postscore" type="button" data-total="${total}" data-lines="${g.lines}" data-hf="${g.hfMax}" data-seconds="${Math.round(g.t / 1000)}" data-seed="${g.seed}">Post score on-chain (@${window.HBPAuth.current().username})</button>` : ''}
     <div class="actions"><button class="primary" data-act="start" type="button">${t('againBtn')}</button>
     <button class="secondary" data-act="home" type="button">${t('homeBtn')}</button>${langMenuBtn()}</div>
-    <p class="ver-note">Hive Block Producer v${VERSION.version}</p>`); }, 700);
+    <p class="ver-note">BeeTris v${VERSION.version} · 🐝 <a href="https://vote.hive.uno/@hive3" target="_blank" rel="noopener" style="color:inherit">Vote the real @hive3 witness</a></p>`); }, 700);
 }
 function showSheet(fn, cls = '') {
   sheetFn = fn;
@@ -1651,6 +1624,24 @@ el.sheet.addEventListener('click', e => {
   if (act === 'start') startGame();
   if (act === 'resume') togglePause();
   if (act === 'home') showHome();
+  if (act === 'postscore') {
+    if (!confirm('This will broadcast your score on the Hive blockchain (uses Resource Credits, not HIVE). Chain data is public and permanent. Continue?')) return;
+    const stats = { total: Number(b.dataset.total), lines: Number(b.dataset.lines), hf: Number(b.dataset.hf), seconds: Number(b.dataset.seconds), seed: Number(b.dataset.seed) };
+    b.disabled = true; b.textContent = 'Broadcasting…';
+    window.HBPAuth.postScore(stats)
+      .then(r => {
+        b.textContent = 'Posted on-chain ✓';
+        // also register on the shared public leaderboard — the server independently re-verifies this
+        // transaction on chain before trusting it, so this call is just "hey, go check tx X" not a claim
+        const username = window.HBPAuth.current().username;
+        const score = Number((stats.total / 1000).toFixed(3)); // must match net/hive-auth.js postScore()'s own rounding
+        fetch(`${window.HBP_RELAY_HTTP || ''}/leaderboard/submit`, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, txId: r.txId, score }),
+        }).catch(() => { /* leaderboard registration is best-effort; the on-chain post itself already succeeded */ });
+      })
+      .catch(e => { b.textContent = 'Failed: ' + e.message; b.disabled = false; });
+  }
 });
 el.overlay.addEventListener('click', e => { if (e.target === el.overlay && langOpen) closeLangMenu(); });
 $('#startForm').addEventListener('submit', e => {
@@ -2087,8 +2078,8 @@ $('#coach').addEventListener('click', () => endCoach());
 /* ---------- analytics (GoatCounter, cookie-free) ----------
    Fill in the GoatCounter site code to switch it on, e.g. 'hive-block-producer' for
    https://hive-block-producer.goatcounter.com. It only runs on the public site, never locally or in previews. */
-const GOATCOUNTER_CODE = 'hive-block-producer';
-const ANALYTICS_HOSTS = ['d-bot-2026.github.io'];
+const GOATCOUNTER_CODE = 'beetris'; // this fork's own GoatCounter site, separate from the upstream author's
+const ANALYTICS_HOSTS = ['hiveb3.github.io'];
 const analyticsOn = !!GOATCOUNTER_CODE && ANALYTICS_HOSTS.includes(location.hostname);
 function initAnalytics() {
   if (!analyticsOn) return;
@@ -2211,6 +2202,122 @@ if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { bo
 requestAnimationFrame(layout);
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
 requestAnimationFrame(frame);
+})();
+</script>
+
+<!-- Hive login + versus multiplayer: optional, never touch game internals, see docs/ARCHITECTURE.md -->
+<script src="net/hive-auth.js"></script>
+<script src="net/multiplayer.js"></script>
+<script>
+(function () {
+  'use strict';
+  // our fork's relay deployment; override by adding ?relay=wss://host to the URL for local testing
+  const params = new URLSearchParams(location.search);
+  const RELAY_WS = params.get('relay') || 'wss://relay.hive-b-three.workers.dev';
+  const RELAY_HTTP = params.get('relayHttp') || 'https://relay.hive-b-three.workers.dev';
+  window.HBP_RELAY_HTTP = RELAY_HTTP; // exposed for the game-over sheet's postscore handler, defined earlier in the file
+
+  const $ = s => document.querySelector(s);
+  const loginBtn = $('#hiveLoginBtn'), pName = $('#pName'), pStatus = $('#pStatus');
+  const vsRoom = $('#vsRoom'), vsJoinBtn = $('#vsJoinBtn'), vsRoster = $('#vsRoster'), vsReadyBtn = $('#vsReadyBtn');
+  const vsLobby = $('#vsLobby'), vsMatchBox = $('#vsMatch'), vsCanvas = $('#vsOpponentCanvas');
+  let match = null;
+
+  function renderSession() {
+    const s = window.HBPAuth && window.HBPAuth.current();
+    if (s) {
+      if (pName) pName.textContent = '@' + s.username;
+      if (pStatus) pStatus.textContent = s.verified ? 'Hive ✓' : 'Hive (unverified)';
+      if (loginBtn) loginBtn.textContent = 'Logout';
+    } else {
+      if (pStatus) pStatus.textContent = 'Guest';
+      if (loginBtn) loginBtn.textContent = 'Login with Hive';
+    }
+  }
+
+  if (loginBtn) {
+    loginBtn.addEventListener('click', async () => {
+      if (window.HBPAuth && window.HBPAuth.current()) { window.HBPAuth.logout(); renderSession(); return; }
+      if (!window.HBPAuth || !window.HBPAuth.hasKeychain()) { alert('Hive Keychain extension not found. Install it to log in with your Hive account (guest play still works without it).'); return; }
+      const name = prompt('Hive username:');
+      if (!name) return;
+      try { await window.HBPAuth.login(name, { server: RELAY_HTTP }); renderSession(); }
+      catch (e) { alert('Login failed: ' + e.message); }
+    });
+  }
+  if (window.HBPAuth) window.HBPAuth.onChange(renderSession);
+  renderSession();
+
+  // home-screen "Log in with Hive" button: logs in, then starts the game as that verified player
+  const homeLoginBtn = $('#homeHiveLoginBtn');
+  if (homeLoginBtn) {
+    homeLoginBtn.addEventListener('click', async () => {
+      if (!window.HBPAuth || !window.HBPAuth.hasKeychain()) { alert('Hive Keychain extension not found. Install it to log in with your Hive account, or use "Play as guest" below.'); return; }
+      const typed = ($('#playerName')?.value || '').trim();
+      const name = typed || prompt('Hive username:');
+      if (!name) return;
+      const original = homeLoginBtn.textContent;
+      homeLoginBtn.textContent = 'Signing…'; homeLoginBtn.disabled = true;
+      try {
+        const session = await window.HBPAuth.login(name, { server: RELAY_HTTP });
+        const nameField = $('#playerName');
+        if (nameField) nameField.value = session.username;
+        $('#startForm').dispatchEvent(new Event('submit', { cancelable: true }));
+      } catch (e) {
+        alert('Login failed: ' + e.message);
+      } finally {
+        homeLoginBtn.textContent = original; homeLoginBtn.disabled = false;
+      }
+    });
+  }
+
+  function renderRoster(players) {
+    if (!vsRoster) return;
+    vsRoster.innerHTML = players.map(p => `<li>${p.hive ? '@' + p.hive : p.name}${p.ready ? ' ✓' : ''}${p.over ? ' 💀' : ''}</li>`).join('');
+    if (vsReadyBtn) vsReadyBtn.hidden = players.length < 2;
+  }
+
+  if (vsJoinBtn) {
+    vsJoinBtn.addEventListener('click', () => {
+      const room = (vsRoom.value || '').trim().toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 12);
+      if (!room) { alert('Enter a room code'); return; }
+      if (match) match.leave();
+      const session = window.HBPAuth && window.HBPAuth.current();
+      const transport = new window.HBPMultiplayer.WebSocketTransport(RELAY_WS);
+      match = window.HBPMultiplayer.createMatch({
+        room, name: (session ? session.username : 'guest' + Math.floor(Math.random() * 1000)),
+        hive: session ? session.username : null, token: session ? session.token : null, transport,
+      });
+      match.onRoster(renderRoster);
+      match.onOpponent((id, snap) => { if (vsCanvas) window.HBPMultiplayer.drawMini(vsCanvas, snap.board); });
+      match.onStart(() => { if (vsLobby) vsLobby.hidden = true; if (vsMatchBox) vsMatchBox.hidden = false; });
+      match.onResult(r => {
+        if (vsLobby) vsLobby.hidden = false; if (vsMatchBox) vsMatchBox.hidden = true;
+        alert(r.winner === match.id ? 'You won the match!' : 'Match over — opponent won.');
+      });
+      vsJoinBtn.textContent = 'In room: ' + room;
+      vsJoinBtn.disabled = true;
+    });
+  }
+  if (vsReadyBtn) vsReadyBtn.addEventListener('click', () => { if (match) match.ready(); });
+
+  // Global leaderboard (Records tab): fetched fresh each time that tab is opened, not cached, since
+  // other players' scores can change at any time.
+  function loadGlobalLeaderboard() {
+    const el2 = $('#globalLeaderboard');
+    if (!el2) return;
+    el2.innerHTML = '<li style="opacity:.6">Loading…</li>';
+    fetch(`${RELAY_HTTP}/leaderboard`)
+      .then(r => r.json())
+      .then(d => {
+        const entries = (d && d.entries) || [];
+        el2.innerHTML = entries.length
+          ? entries.map((e, i) => `<li>#${i + 1} <b>@${e.username}</b> — ${e.score.toFixed(3)}</li>`).join('')
+          : '<li style="opacity:.6">No verified scores yet — be the first!</li>';
+      })
+      .catch(() => { el2.innerHTML = '<li style="opacity:.6">Couldn\'t reach the leaderboard right now.</li>'; });
+  }
+  document.querySelectorAll('.home-tabs button[data-view="records"]').forEach(b => b.addEventListener('click', loadGlobalLeaderboard));
 })();
 </script>
 </body>
