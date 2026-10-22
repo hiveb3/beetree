@@ -583,7 +583,7 @@ kbd {
             <label for="playerName" data-i18n="playerName">玩家名稱</label>
             <input id="playerName" name="playerName" maxlength="16" data-i18n-ph="namePh" spellcheck="false">
             <button class="primary" type="submit" data-i18n="guestPlay">以訪客身分開始</button>
-            <button class="secondary hive-login" type="button" disabled><span data-i18n="hiveLogin">用 Hive 帳號登入</span><small data-i18n="soon">規劃中</small></button>
+            <button class="secondary hive-login" type="button" id="hiveLoginBtn"><span data-i18n="hiveLogin">用 Hive 帳號登入</span></button>
             <p class="note login-note" data-i18n="loginNote"></p>
           </form>
           <p class="disclaimer"><span data-i18n="disclaimer"></span> <span data-i18n="unofficial"></span></p>
@@ -629,7 +629,7 @@ kbd {
       <canvas id="hold" data-i18n-aria="holdAria" aria-label="保留的方塊"></canvas>
     </section>
     <section class="box wallet">
-      <div class="player"><b id="pName"></b><small data-i18n="guest">訪客</small></div>
+      <div class="player"><b id="pName"></b><small data-i18n="guest" id="pGuestTag">訪客</small></div>
       <div class="stat big"><label data-i18n="wallet">錢包</label><div class="num"><span id="hive">0.000</span><small>HIVE</small></div></div>
       <div class="stat hbd"><label data-i18n="hbdSavings">HBD 儲蓄</label><div class="num"><span id="hbd">0.000</span><small>HBD</small></div><div class="sub m-hide" id="interest"></div></div>
       <div class="sub m-hide" id="bestLine"></div>
@@ -728,6 +728,7 @@ kbd {
 
 <script src="version.js"></script>
 <script src="i18n.js"></script>
+<script src="net/hive-auth.js"></script>
 <script>
 (() => {
 'use strict';
@@ -1485,7 +1486,50 @@ let sheetFn = null;
 const NAME_KEY = 'hive-tetris-name', RUNS_KEY = 'hive-tetris-runs';
 let playerName = (store.get(NAME_KEY) || '').slice(0, 16);
 function cleanName(v) { return String(v || '').replace(/[\u0000-\u001f\u007f<>]/g, '').replace(/\s+/g, ' ').trim().slice(0, 16); }
-function displayName() { return playerName || t('defaultName'); }
+const HBP_AUTH_SERVER = 'https://169-58-182-112.sslip.io';
+function hiveSession() { return (window.HBPAuth && window.HBPAuth.current()) || null; }
+function displayName() {
+  const s = hiveSession();
+  if (s) return '@' + s.username;
+  return playerName || t('defaultName');
+}
+function updateLoginUI() {
+  const guestTag = $('#pGuestTag');
+  if (guestTag) guestTag.hidden = !!hiveSession();
+  setText($('#pName'), displayName());
+}
+async function onHiveLoginClick() {
+  const btn = $('#hiveLoginBtn');
+  if (!window.HBPAuth || !window.HBPAuth.hasKeychain()) {
+    toast(t('noKeychain') || 'Install Hive Keychain to log in');
+    return;
+  }
+  const name = (window.prompt(t('enterHiveName') || 'Hive username:') || '').trim();
+  if (!name) return;
+  if (!window.HBPAuth.isValidName(name)) {
+    toast(t('invalidHiveName') || 'That is not a valid Hive username');
+    return;
+  }
+  if (btn) btn.disabled = true;
+  try {
+    const session = await window.HBPAuth.login(name, { method: 'keychain', server: HBP_AUTH_SERVER });
+    playerName = cleanName('@' + session.username);
+    store.set(NAME_KEY, playerName);
+    updateLoginUI();
+    toast((session.verified ? '\u2713 ' : '') + (t('loggedInAs') || 'Logged in as') + ' @' + session.username);
+    startGame();
+  } catch (e) {
+    toast(t('loginFailed') || 'Hive login failed');
+  } finally {
+    if (btn) btn.disabled = false;
+  }
+}
+document.addEventListener('DOMContentLoaded', () => {
+  const btn = $('#hiveLoginBtn');
+  if (btn) btn.addEventListener('click', onHiveLoginClick);
+  if (window.HBPAuth) window.HBPAuth.onChange(updateLoginUI);
+  updateLoginUI();
+});
 function loadRuns() {
   try { const r = JSON.parse(store.get(RUNS_KEY) || '[]'); return Array.isArray(r) ? r : []; } catch (e) { return []; }
 }

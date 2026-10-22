@@ -105,7 +105,7 @@ window.HT_I18N = {
     touchHint: 'On a phone, use the buttons under the board. Tapping the board also rotates.',
     langTitle: 'Choose a language', close: 'Close',
     playerName: 'Player name', namePh: 'Pick a nickname (up to 16 characters)', guestPlay: 'Play as guest',
-    hiveLogin: 'Log in with Hive', soon: 'Coming soon', guest: 'Guest', defaultName: 'Anonymous bee',
+    hiveLogin: 'Log in with Hive', soon: 'Coming soon', guest: 'Guest', defaultName: 'Anonymous bee', logout: 'Log out', loggedOut: 'Logged out', noKeychain: 'Install Hive Keychain to log in', enterHiveName: 'Hive username:', invalidHiveName: 'That is not a valid Hive username', loggedInAs: 'Logged in as', loginFailed: 'Hive login failed',
     loginNote: 'Guest records stay in this browser only. Hive login and on-chain records are planned.',
     howTo: 'How it plays', records: 'Records on this device', noRecords: 'No runs yet. Play one!',
     colName: 'Player', colScore: 'Net worth', colLines: 'Lines', colHf: 'HF', colDate: 'Date', colVer: 'Ver',
