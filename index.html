@@ -1632,6 +1632,10 @@ el.sheet.addEventListener('click', e => {
   if (act === 'start') startGame();
   if (act === 'resume') togglePause();
   if (act === 'home') showHome();
+  if (act === 'viewleaderboard') {
+    showHome();
+    document.querySelector('.home-tabs button[data-view="records"]')?.click();
+  }
   if (act === 'postscore') {
     if (!confirm('This will broadcast your score on the Hive blockchain (uses Resource Credits, not HIVE). Chain data is public and permanent. Continue?')) return;
     const stats = { total: Number(b.dataset.total), lines: Number(b.dataset.lines), hf: Number(b.dataset.hf), seconds: Number(b.dataset.seconds), seed: Number(b.dataset.seed) };
@@ -1647,6 +1651,14 @@ el.sheet.addEventListener('click', e => {
           method: 'POST', headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username, txId: r.txId, score }),
         }).catch(() => { /* leaderboard registration is best-effort; the on-chain post itself already succeeded */ });
+        // offer a quick way to see where that score landed, right when the player cares most about it
+        if (!b.nextElementSibling || b.nextElementSibling.dataset.act !== 'viewleaderboard') {
+          const viewBtn = document.createElement('button');
+          viewBtn.type = 'button'; viewBtn.className = 'secondary'; viewBtn.dataset.act = 'viewleaderboard';
+          viewBtn.textContent = 'View leaderboard';
+          viewBtn.style.marginTop = '8px';
+          b.insertAdjacentElement('afterend', viewBtn);
+        }
       })
       .catch(e => { b.textContent = 'Failed: ' + e.message; b.disabled = false; });
   }
@@ -2320,8 +2332,9 @@ requestAnimationFrame(frame);
     // entries here is always the full accumulated list from rank 1 (loadGlobalLeaderboard concatenates
     // every page into lbEntries before calling this) — so position i is always absolute rank i+1,
     // regardless of which page was most recently fetched. Do not offset by lbOffset here.
+    const fmtWhen = iso => { try { return new Date(iso).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' }); } catch (e) { return ''; } };
     el2.innerHTML = entries.length
-      ? entries.map((e, i) => `<li>#${i + 1} <b>@${e.username}</b> — ${e.score.toFixed(3)}</li>`).join('')
+      ? entries.map((e, i) => `<li>#${i + 1} <b>@${e.username}</b> — ${e.score.toFixed(3)} <small style="opacity:.6">${fmtWhen(e.at)}</small></li>`).join('')
       : (lbOffset === 0 ? '<li style="opacity:.6">No verified scores yet — be the first!</li>' : '<li style="opacity:.6">No more entries.</li>');
     const total = (d && d.total) || 0;
     if (moreBtn) moreBtn.hidden = lbOffset + entries.length >= total;
